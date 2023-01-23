@@ -15,4 +15,4 @@ To get started, just clone the repository and run `npm install && npm run dev`:
     npm install
     npm run dev
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://127.0.0.1:4200/](http://127.0.0.1:4200/) with your browser to see the result.
