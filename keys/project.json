@@ -1,0 +1,16 @@
+{
+  "name": "keys",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "keys/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["keys/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  }
+}
