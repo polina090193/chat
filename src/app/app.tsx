@@ -1,15 +1,39 @@
+import Pusher from 'pusher';
+import { createContext, useContext, useState } from 'react';
 import styled from 'styled-components';
-import UsernameForm from './components/UsernameForm';
+import ChatScreen from './components/ChatScreen/ChatScreen';
+import LoginForm from './components/LoginForm/LoginForm';
+import * as keys from '@chat/keys'
 
 const StyledApp = styled.div`
   // Your style here
 `;
 
+export const UserInfoContext = createContext({} as UserInfo);
+
+export const useUserInfoContext = () => useContext(UserInfoContext);
+
 export function App() {
+
+  const [username, setUsername] = useState('user')
+  const [page, setPage] = useState('login')
+
+  const submitName = (username: string) => {
+    setUsername(username)
+    setPage('chat')
+  }
+
+  // const pusher = new Pusher({
+  //   ...keys,
+  //   encrypted: true
+  // });
+
   return (
-    <StyledApp>
-      <UsernameForm />
-    </StyledApp>
+    <UserInfoContext.Provider value={{ username, submitName }}>
+      <StyledApp>
+        {page === 'login' ? <LoginForm /> : page === 'chat' ? <ChatScreen /> : null}
+      </StyledApp>
+    </UserInfoContext.Provider>
   );
 }
 
