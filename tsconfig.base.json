@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@chat/keys": ["keys/src/index.ts"]
+      "@chat/helpers": ["helpers/src/index.ts"],
+      "@chat/keys": ["keys/src/index.ts"],
+      "@chat/pusher-instance": ["pusher-instance/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

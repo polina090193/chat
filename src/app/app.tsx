@@ -1,9 +1,7 @@
-import Pusher from 'pusher';
 import { createContext, useContext, useState } from 'react';
 import styled from 'styled-components';
 import ChatScreen from './components/ChatScreen/ChatScreen';
 import LoginForm from './components/LoginForm/LoginForm';
-import * as keys from '@chat/keys'
 
 const StyledApp = styled.div`
   // Your style here
@@ -22,11 +20,6 @@ export function App() {
     setUsername(username)
     setPage('chat')
   }
-
-  // const pusher = new Pusher({
-  //   ...keys,
-  //   encrypted: true
-  // });
 
   return (
     <UserInfoContext.Provider value={{ username, submitName }}>
