@@ -17,7 +17,8 @@
     "paths": {
       "@chat/helpers": ["helpers/src/index.ts"],
       "@chat/keys": ["keys/src/index.ts"],
-      "@chat/pusher-instance": ["pusher-instance/src/index.ts"]
+      "@chat/pusher-instance": ["pusher-instance/src/index.ts"],
+      "@chat/types": ["types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

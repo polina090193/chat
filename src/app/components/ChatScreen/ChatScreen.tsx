@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
 import * as keys from '@chat/keys'
-import uuid from 'react-uuid'
+import { Chat, ChatWithID } from '@chat/types'
 
 const StyledChatScreen = styled.div`
   // Your style here
@@ -16,22 +16,29 @@ export function ChatScreen(/* { text, handleTextChange } */) {
   const [chats, setChats] = useState([] as ChatWithID[])
   const [text, setText] = useState('')
 
+  const getMessages = () => {
+    axios.get('http://localhost:5000/messages')
+        .then(res => {
+          if (res.data.status === 'success') setChats(res.data.messages)
+        })
+        .catch(e => console.log(e))
+  }
+
   useEffect(() => {
+    getMessages()
+    
     const pusher = new Pusher(keys.key, {
       cluster: keys.cluster,
     });
 
-    const channel = pusher.subscribe("chat");
+    const channel = pusher.subscribe('chat');
 
-    channel.bind("message", function (data: Chat) {
-      setChats((prevState) => ([
-        ...prevState,
-        { id: uuid(), username: data.username, message: data.message },
-      ]));
+    channel.bind('message', function (data: Chat) {
+      getMessages()
     });
 
     return () => {
-      pusher.unsubscribe("chat");
+      pusher.unsubscribe('chat')
     };
   }, []);
 
@@ -45,7 +52,8 @@ export function ChatScreen(/* { text, handleTextChange } */) {
         username: userInfo.username,
         message: text
       };
-      axios.post('http://localhost:5000/message', payload).catch(e => console.log(e))
+      axios.post('http://localhost:5000/message', payload)
+        .catch(e => console.log(e))
 
       setText('')
     }
