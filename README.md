@@ -1,5 +1,5 @@
 # Chat
-In progress
+Work in progress
 
 React app using Pusher.
 
@@ -9,10 +9,24 @@ React app using Pusher.
 
 ## Getting Started
 
-To get started, just clone the repository and run `npm install && npm run dev`:
-
+To get started:
+1. Clone the repository:
+```
     git clone https://github.com/polina090193/chat
+```
+2. Sign up to [Pusher](https://pusher.com) and [create a channel instance](https://dashboard.pusher.com/).
+4. In the folder `chat/keys/src/lib/` create a file named `keys.tsx` with the following code:
+```
+    export const appId = 'YOUR_APP_ID'
+    export const key = 'YOUR_KEY'
+    export const secret = 'YOUR_SECRET'
+    export const cluster = 'YOUR_CLUSTER'
+```
+3. Go to **App keys** of [your channel](https://dashboard.pusher.com/).
+4. Copy your keys to your `keys.tsx`.
+5. Run the following commands in your terminal.
+```
     npm install
-    npm run dev
-
-Open [http://127.0.0.1:4200/](http://127.0.0.1:4200/) with your browser to see the result.
+    npx nx run-many --target=serve --projects=chat,server --parallel=true
+```
+Open [http://localhost:4200/](http://localhost:4200/) with your browser to see the result.
