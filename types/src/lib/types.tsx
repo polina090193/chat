@@ -1,5 +1,5 @@
-export interface Chat { username: string, message: string }
+export interface Message { username: string, message: string }
 
-export interface ChatWithID extends Chat {
+export interface MessageWithID extends Message {
   id: string,
 }

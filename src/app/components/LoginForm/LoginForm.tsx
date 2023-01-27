@@ -25,7 +25,6 @@ export function LoginForm() {
     } else {
       alert('First enter your name')
     }
-    target.reset()
   }
 
   return (
@@ -40,7 +39,7 @@ export function LoginForm() {
           data-testid="login-username"
           onChange={onChange}
         />
-        <input type="submit" data-testid="login-submit" value="Save" />
+        <input type="submit" data-testid="login-submit" value="Login" />
       </form>
     </StyledLoginForm>
   );

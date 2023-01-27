@@ -1,39 +1,39 @@
 import { useUserInfoContext } from '../../app';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
 import * as keys from '@chat/keys'
-import { Chat, ChatWithID } from '@chat/types'
+import { Message, MessageWithID } from '@chat/types'
 
 const StyledChatScreen = styled.div`
   // Your style here
 `;
 
-export function ChatScreen(/* { text, handleTextChange } */) {
+export function ChatScreen() {
 
   const userInfo = useUserInfoContext();
-  const [chats, setChats] = useState([] as ChatWithID[])
+  const [messages, setMessages] = useState([] as MessageWithID[])
   const [text, setText] = useState('')
 
   const getMessages = () => {
     axios.get('http://localhost:5000/messages')
         .then(res => {
-          if (res.data.status === 'success') setChats(res.data.messages)
+          if (res.data.status === 'success') setMessages(res.data.messages)
         })
         .catch(e => console.log(e))
   }
 
   useEffect(() => {
     getMessages()
-    
+
     const pusher = new Pusher(keys.key, {
       cluster: keys.cluster,
     });
 
     const channel = pusher.subscribe('chat');
 
-    channel.bind('message', function (data: Chat) {
+    channel.bind('message', function (data: Message) {
       getMessages()
     });
 
@@ -42,9 +42,9 @@ export function ChatScreen(/* { text, handleTextChange } */) {
     };
   }, []);
 
-  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value)
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>): void => setText(e.target.value)
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
 
     if (e.key === 'Enter' && text.length) {
 
@@ -59,12 +59,16 @@ export function ChatScreen(/* { text, handleTextChange } */) {
     }
   }
 
+  const handleLogout = (e: React.MouseEvent): void => {
+    userInfo.logout()
+  }
+
   return (
     <StyledChatScreen data-testid="chat-screen" >
-      <h2>This is a chat screen.</h2>
-      <h2>Your username is {userInfo.username}</h2>
+      <h2>Hello, {userInfo.username}</h2>
+      <button type="button" onClick={handleLogout}>Logout</button>
       <div>
-        { chats.map(chat => <div key={chat.id}><strong>{chat.username}</strong>: {chat.message}</div>) }
+        { messages.map(chat => <div key={chat.id}><strong>{chat.username}</strong>: {chat.message}</div>) }
       </div>
       <input
         type="text"

@@ -21,8 +21,13 @@ export function App() {
     setPage('chat')
   }
 
+  const logout = () => {
+    // setUsername('')
+    setPage('login')
+  }
+
   return (
-    <UserInfoContext.Provider value={{ username, submitName }}>
+    <UserInfoContext.Provider value={{ username, submitName, logout }}>
       <StyledApp>
         {page === 'login' ? <LoginForm /> : page === 'chat' ? <ChatScreen /> : null}
       </StyledApp>
