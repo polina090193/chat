@@ -2,5 +2,9 @@
   "/server": {
     "target": "http://localhost:5000",
     "secure": false
+  },
+  "/nest-api": {
+    "target": "http://localhost:3333",
+    "secure": false
   }
 }

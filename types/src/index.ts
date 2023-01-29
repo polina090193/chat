@@ -1,1 +1,1 @@
-export * from './lib/types';
+export { Message, MessageWithID } from './lib/types';
