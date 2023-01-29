@@ -7,7 +7,7 @@ import {
 import MessagesService from './messages.service';
 import SendMessageDto from './dto/sendMessage.dto';
 
-@Controller('posts')
+@Controller('messages')
 export default class PostsController {
   constructor(
     private readonly messagesService: MessagesService,
@@ -19,7 +19,7 @@ export default class PostsController {
   }
 
   @Post()
-  async sendMessage(@Body() destUserID: string, message: SendMessageDto) {
+  async sendMessage(@Body() /* destUserID: string,  */message: SendMessageDto) {
     return this.messagesService.sendMessage(/* Number(destUserID),  */message);
   }
 }

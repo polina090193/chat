@@ -17,9 +17,9 @@ export function ChatScreen() {
   const [text, setText] = useState('')
 
   const getMessages = () => {
-    axios.get('http://localhost:5000/messages')
+    axios.get('http://localhost:3333/api/messages')
         .then(res => {
-          if (res.data.status === 'success') setMessages(res.data.messages)
+          /* if (res.data.status === 'success')  */setMessages(res.data)
         })
         .catch(e => console.log(e))
   }
@@ -52,7 +52,7 @@ export function ChatScreen() {
         username: userInfo.username,
         message: text
       };
-      axios.post('http://localhost:5000/message', payload)
+      axios.post('http://localhost:3333/api/messages', payload)
         .catch(e => console.log(e))
 
       setText('')

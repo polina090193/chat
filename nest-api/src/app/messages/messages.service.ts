@@ -37,8 +37,8 @@ export default class MessagesService {
       const messageWithID = { id: uuidv4(), ...message }
       pusher.trigger('chat', 'message', message);
       this.messages.push(messageWithID)
-      return 'Message is sent';
+      return message;
     // }
-    throw new HttpException('Post not found', HttpStatus.NOT_FOUND);
+    throw new HttpException('User not found', HttpStatus.NOT_FOUND);
   }
 }

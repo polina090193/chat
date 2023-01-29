@@ -39,6 +39,7 @@
     "@vitejs/plugin-react": "^3.0.0",
     "@vitest/coverage-c8": "~0.25.8",
     "@vitest/ui": "^0.25.8",
+    "ajv": "^7.2.4",
     "babel-plugin-styled-components": "1.10.7",
     "cypress": "^12.2.0",
     "eslint": "~8.15.0",
