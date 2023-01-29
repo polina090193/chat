@@ -15,7 +15,7 @@ To get started:
     git clone https://github.com/polina090193/chat
 ```
 2. Sign up to [Pusher](https://pusher.com) and [create a channel instance](https://dashboard.pusher.com/).
-4. In the folder `chat/keys/src/lib/` create a file named `keys.tsx` with the following code:
+4. In the folder `chat/keys/src/lib/` create a file named `keys.ts` with the following code:
 ```
     export const appId = 'YOUR_APP_ID'
     export const key = 'YOUR_KEY'
@@ -23,10 +23,10 @@ To get started:
     export const cluster = 'YOUR_CLUSTER'
 ```
 3. Go to **App keys** of [your channel](https://dashboard.pusher.com/).
-4. Copy your keys to your `keys.tsx`.
-5. Run the following commands in your terminal.
+4. Copy your keys to your `keys.ts`.
+5. Run the following commands in your terminal for using with Nest.js:
 ```
     npm install
-    npx nx run-many --target=serve --projects=chat,server --parallel=true
+    npx nx run-many --target=serve --projects=chat,nest-api --parallel=true
 ```
 Open [http://localhost:4200/](http://localhost:4200/) with your browser to see the result.
