@@ -1,11 +1,14 @@
 import { createContext, useContext, useState } from 'react';
-import styled from 'styled-components';
+import styled, { DefaultTheme, ThemeProvider } from 'styled-components';
+import blueTheme from '../themes/blue-theme';
+import greenTheme from '../themes/green-theme';
+import Button from './components/Button/Button';
 import ChatScreen from './components/ChatScreen/ChatScreen';
 import LoginForm from './components/LoginForm/LoginForm';
 
 const StyledApp = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   width: 100vw;
   margin: auto;
   max-width: 300px;
@@ -15,30 +18,47 @@ const StyledApp = styled.div`
   }
 `;
 
-export const UserInfoContext = createContext({} as UserInfo);
+type ThemeWithName = DefaultTheme & {
+  name: string,
+}
 
+const themes = {
+  blue: { ...blueTheme, name: 'blue'},
+  green: { ...greenTheme, name: 'green'},
+}
+
+export const UserInfoContext = createContext({} as UserInfo);
 export const useUserInfoContext = () => useContext(UserInfoContext);
 
 export function App() {
 
   const [username, setUsername] = useState('user')
   const [page, setPage] = useState('login')
+  const [theme, setTheme] = useState<ThemeWithName>(themes.blue)
 
   const submitName = (username: string) => {
     setUsername(username)
     setPage('chat')
   }
 
+  const themeForSwitch: ThemeWithName = theme === themes.blue ? themes.green : themes.blue
+
   const logout = () => {
-    // setUsername('')
     setPage('login')
+  }
+
+  const onClickThemeButton = () => {
+    setTheme(themeForSwitch)
   }
 
   return (
     <UserInfoContext.Provider value={{ username, submitName, logout }}>
-      <StyledApp>
-        {page === 'login' ? <LoginForm /> : page === 'chat' ? <ChatScreen /> : null}
-      </StyledApp>
+      <ThemeProvider theme={theme}>
+        <StyledApp>
+          <Button buttonText={`Change theme to ${themeForSwitch.name}`} onClickAction={onClickThemeButton} />
+          {page === 'login' ? <LoginForm /> : page === 'chat' ? <ChatScreen /> : null}
+        </StyledApp>
+      </ThemeProvider>
     </UserInfoContext.Provider>
   );
 }
