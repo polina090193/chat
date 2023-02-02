@@ -1,6 +1,7 @@
 import { FormEvent, useState, ChangeEvent } from 'react';
 import { useUserInfoContext } from '../../app';
 import styled from 'styled-components';
+import Button from '../Button/Button';
 
 const StyledLoginForm = styled.div`
   // Your style here
@@ -16,12 +17,9 @@ export function LoginForm() {
     setUsername(e.target.value)
   }
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) =>  {
-    e.preventDefault()
-    const target = e.target as HTMLFormElement
-    const username = target.username.value
+  const onFormSubmit = () =>  {
     if (username) {
-      userInfo.submitName(target.username.value)
+      userInfo.submitName(username)
     } else {
       alert('First enter your name')
     }
@@ -30,7 +28,7 @@ export function LoginForm() {
   return (
     <StyledLoginForm data-testid="login-form">
       <h2>What is your username?</h2>
-      <form onSubmit={onSubmit}>
+      <form>
         <input
           type="text"
           value={username}
@@ -39,7 +37,7 @@ export function LoginForm() {
           data-testid="login-username"
           onChange={onChange}
         />
-        <input type="submit" data-testid="login-submit" value="Login" />
+        <Button buttonText='Submit' onClickAction={onFormSubmit} />
       </form>
     </StyledLoginForm>
   );

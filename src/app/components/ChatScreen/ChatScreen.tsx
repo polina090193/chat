@@ -14,12 +14,12 @@ export function ChatScreen() {
 
   const userInfo = useUserInfoContext();
   const [messages, setMessages] = useState([] as MessageWithID[])
-  const [text, setText] = useState('')
+  const [msgText, setMsgText] = useState('')
 
   const getMessages = () => {
     axios.get('http://localhost:3333/api/messages')
         .then(res => {
-          /* if (res.data.status === 'success')  */setMessages(res.data)
+          /* TODO if (res.data.status === 'success')  */setMessages(res.data)
         })
         .catch(e => console.log(e))
   }
@@ -42,20 +42,20 @@ export function ChatScreen() {
     };
   }, []);
 
-  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>): void => setText(e.target.value)
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>): void => setMsgText(e.target.value)
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
 
-    if (e.key === 'Enter' && text.length) {
+    if (e.key === 'Enter' && msgText.length) {
 
       const payload = {
         username: userInfo.username,
-        message: text
+        message: msgText
       };
       axios.post('http://localhost:3333/api/messages', payload)
         .catch(e => console.log(e))
 
-      setText('')
+      setMsgText('')
     }
   }
 
@@ -72,13 +72,14 @@ export function ChatScreen() {
       </div>
       <input
         type="text"
-        value={text}
+        value={msgText}
         autoFocus
         placeholder="chat here..."
         className="form-control"
         onChange={handleTextChange}
         onKeyDown={handleKeyDown}
       />
+      {/* TODO send button */}
     </StyledChatScreen>
   );
 }

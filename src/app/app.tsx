@@ -4,7 +4,15 @@ import ChatScreen from './components/ChatScreen/ChatScreen';
 import LoginForm from './components/LoginForm/LoginForm';
 
 const StyledApp = styled.div`
-  // Your style here
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  margin: auto;
+  max-width: 300px;
+  
+  @media screen and (max-width: 320px) {
+    max-width: unset;
+  }
 `;
 
 export const UserInfoContext = createContext({} as UserInfo);
