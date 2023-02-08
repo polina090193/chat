@@ -12,9 +12,14 @@ const StyledApp = styled.div`
   width: 100vw;
   margin: auto;
   max-width: 300px;
+  box-sizing: border-box;
   
   @media screen and (max-width: 320px) {
     max-width: unset;
+  }
+
+  * {
+    box-sizing: border-box;
   }
 `;
 
@@ -23,8 +28,8 @@ type ThemeWithName = DefaultTheme & {
 }
 
 const themes = {
-  blue: { ...blueTheme, name: 'blue'},
-  green: { ...greenTheme, name: 'green'},
+  blue: { ...blueTheme, name: 'blue' },
+  green: { ...greenTheme, name: 'green' },
 }
 
 export const UserInfoContext = createContext({} as UserInfo);
@@ -55,7 +60,7 @@ export function App() {
     <UserInfoContext.Provider value={{ username, submitName, logout }}>
       <ThemeProvider theme={theme}>
         <StyledApp>
-          <Button buttonText={`Change theme to ${themeForSwitch.name}`} onClickAction={onClickThemeButton} />
+          <Button buttonText={`Change theme from ${theme.name} to ${themeForSwitch.name}`} onClickAction={onClickThemeButton} />
           {page === 'login' ? <LoginForm /> : page === 'chat' ? <ChatScreen /> : null}
         </StyledApp>
       </ThemeProvider>

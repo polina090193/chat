@@ -2,9 +2,14 @@ import { FormEvent, useState, ChangeEvent } from 'react';
 import { useUserInfoContext } from '../../app';
 import styled from 'styled-components';
 import Button from '../Button/Button';
+import Input from '../Input/Input';
 
 const StyledLoginForm = styled.div`
   // Your style here
+`;
+
+const LoginFormInput = styled(Input)`
+  margin-bottom: 10px;
 `;
 
 
@@ -29,13 +34,13 @@ export function LoginForm() {
     <StyledLoginForm data-testid="login-form">
       <h2>What is your username?</h2>
       <form>
-        <input
-          type="text"
-          value={username}
-          name="username"
-          placeholder="Enter name"
-          data-testid="login-username"
-          onChange={onChange}
+        <LoginFormInput
+          inputType="text"
+          inputValue={username}
+          // name="username"
+          // placeholder="Enter name"
+          // data-testid="login-username"
+          onChangeAction={onChange}
         />
         <Button buttonText='Submit' onClickAction={onFormSubmit} />
       </form>

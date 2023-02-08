@@ -31,7 +31,7 @@ type ButtonProps = {
   styles?: React.CSSProperties,
 }
 
-export const Button: React.FC<ButtonProps> = ({ buttonType = 'button', buttonText, onClickAction, styles }) => {
+export const Button: React.FC<ButtonProps> = ({ buttonType = 'button', buttonText, onClickAction }) => {
 
   return (
     <StyledButton type={buttonType} onClick={onClickAction}>{buttonText}</StyledButton>
