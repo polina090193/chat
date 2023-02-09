@@ -1,5 +1,3 @@
-// import { MouseEventHandler } from 'react';
-import { ChangeEventHandler } from 'react';
 import styled from 'styled-components';
 
 const StyledInput = styled.input`
@@ -20,17 +18,10 @@ const StyledInput = styled.input`
   }
 `;
 
-type InputProps = {
-  className?: string,
-  inputType?: string,
-  inputValue: string,
-  onChangeAction?: ChangeEventHandler<HTMLInputElement>,
-}
-
-export const Input: React.FC<InputProps> = ({ className, inputType = 'text', inputValue, onChangeAction }) => {
+export const Input: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = (props) => {
 
   return (
-    <StyledInput className={className} type={inputType} value={inputValue} onChange={onChangeAction} ></StyledInput>
+    <StyledInput {...props} />
   );
 }
 

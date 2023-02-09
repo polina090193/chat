@@ -6,9 +6,32 @@ import Pusher from 'pusher-js';
 import * as keys from '@chat/keys'
 import { Message, MessageWithID } from '@chat/types'
 import Button from '../Button/Button';
+import Input from '../Input/Input';
 
 const StyledChatScreen = styled.div`
   // Your style here
+`;
+
+const ChatScreenHeader = styled.h2`
+  i {
+    color: ${props => props.theme.colors.main};
+  }
+`;
+
+const ChatHistory = styled.div`
+  margin-top: 10px;
+  `;
+
+const MessageItem = styled.div`
+  margin: 5px 0;
+  
+  strong {
+    color: ${props => props.theme.colors.main};
+  }
+  `;
+
+const NewMsgInput = styled(Input)`
+  margin: 10px 0;
 `;
 
 export function ChatScreen() {
@@ -67,12 +90,12 @@ export function ChatScreen() {
 
   return (
     <StyledChatScreen data-testid="chat-screen" >
-      <h2>Hello, {userInfo.username}</h2>
+      <ChatScreenHeader>Hello, <i>{userInfo.username}</i></ChatScreenHeader>
       <Button buttonText="Logout" onClickAction={handleLogout} />
-      <div>
-        {messages.map(chat => <div key={chat.id}><strong>{chat.username}</strong>: {chat.message}</div>)}
-      </div>
-      <input
+      <ChatHistory>
+        {messages.map(chat => <MessageItem key={chat.id}><strong>{chat.username}</strong>: {chat.message}</MessageItem>)}
+      </ChatHistory>
+      <NewMsgInput
         type="text"
         value={msgText}
         autoFocus

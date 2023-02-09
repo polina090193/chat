@@ -1,4 +1,4 @@
-import { FormEvent, useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { useUserInfoContext } from '../../app';
 import styled from 'styled-components';
 import Button from '../Button/Button';
@@ -11,7 +11,6 @@ const StyledLoginForm = styled.div`
 const LoginFormInput = styled(Input)`
   margin-bottom: 10px;
 `;
-
 
 export function LoginForm() {
 
@@ -35,12 +34,12 @@ export function LoginForm() {
       <h2>What is your username?</h2>
       <form>
         <LoginFormInput
-          inputType="text"
-          inputValue={username}
-          // name="username"
-          // placeholder="Enter name"
-          // data-testid="login-username"
-          onChangeAction={onChange}
+          type="text"
+          value={username}
+          name="username"
+          placeholder="Enter name"
+          data-testid="login-username"
+          onChange={onChange}
         />
         <Button buttonText='Submit' onClickAction={onFormSubmit} />
       </form>
