@@ -41,7 +41,7 @@ export function LoginForm() {
           data-testid="login-username"
           onChange={onChange}
         />
-        <Button buttonText='Submit' onClickAction={onFormSubmit} />
+        <Button buttonText='Submit' onClick={onFormSubmit} />
       </form>
     </StyledLoginForm>
   );

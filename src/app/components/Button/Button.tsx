@@ -1,4 +1,3 @@
-import { MouseEventHandler } from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
@@ -24,17 +23,14 @@ const StyledButton = styled.button`
   }
 `;
 
-type ButtonProps = {
-  buttonType?: "button" | "submit" | "reset" | undefined,
-  buttonText: string,
-  onClickAction: MouseEventHandler<HTMLButtonElement>,
-  styles?: React.CSSProperties,
+type ButtonWithText = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  buttonText: string
 }
 
-export const Button: React.FC<ButtonProps> = ({ buttonType = 'button', buttonText, onClickAction }) => {
+export const Button: React.FC<ButtonWithText> = (props) => {
 
   return (
-    <StyledButton type={buttonType} onClick={onClickAction}>{buttonText}</StyledButton>
+    <StyledButton {...props}>{props.buttonText}</StyledButton>
   );
 }
 

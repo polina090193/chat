@@ -60,7 +60,7 @@ export function App() {
     <UserInfoContext.Provider value={{ username, submitName, logout }}>
       <ThemeProvider theme={theme}>
         <StyledApp>
-          <Button buttonText={`Change theme from ${theme.name} to ${themeForSwitch.name}`} onClickAction={onClickThemeButton} />
+          <Button buttonText={`Change theme from ${theme.name} to ${themeForSwitch.name}`} onClick={onClickThemeButton} />
           {page === 'login' ? <LoginForm /> : page === 'chat' ? <ChatScreen /> : null}
         </StyledApp>
       </ThemeProvider>

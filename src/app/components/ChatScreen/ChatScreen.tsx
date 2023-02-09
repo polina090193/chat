@@ -1,10 +1,10 @@
 import { useUserInfoContext } from '../../app';
 import styled from 'styled-components';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Pusher from 'pusher-js';
 import * as keys from '@chat/keys'
-import { Message, MessageWithID } from '@chat/types'
+import { MessageWithID } from '@chat/types'
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 
@@ -19,6 +19,8 @@ const ChatScreenHeader = styled.h2`
 `;
 
 const ChatHistory = styled.div`
+  height: 140px;
+  overflow-y: auto;
   margin-top: 10px;
   `;
 
@@ -48,6 +50,8 @@ export function ChatScreen() {
       .catch(e => console.log(e))
   }
 
+  const historyEnd = useRef<null | HTMLDivElement>(null)
+
   useEffect(() => {
     getMessages()
 
@@ -57,14 +61,19 @@ export function ChatScreen() {
 
     const channel = pusher.subscribe('chat');
 
-    channel.bind('message', function (data: Message) {
+    channel.bind('message', () => {
       getMessages()
+      historyEnd.current?.scrollIntoView()
     });
 
     return () => {
       pusher.unsubscribe('chat')
     };
   }, []);
+
+  useEffect(() => {
+    historyEnd.current?.scrollIntoView()
+  }, [messages])
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>): void => setMsgText(e.target.value)
 
@@ -91,9 +100,10 @@ export function ChatScreen() {
   return (
     <StyledChatScreen data-testid="chat-screen" >
       <ChatScreenHeader>Hello, <i>{userInfo.username}</i></ChatScreenHeader>
-      <Button buttonText="Logout" onClickAction={handleLogout} />
+      <Button buttonText="Logout" onClick={handleLogout} />
       <ChatHistory>
         {messages.map(chat => <MessageItem key={chat.id}><strong>{chat.username}</strong>: {chat.message}</MessageItem>)}
+        <div ref={historyEnd} />
       </ChatHistory>
       <NewMsgInput
         type="text"
@@ -104,7 +114,7 @@ export function ChatScreen() {
         onChange={handleTextChange}
         onKeyDown={handleKeyDownMessage}
       />
-      <Button buttonText="Send" onClickAction={clickSendMessageBtn} />
+      <Button buttonText="Send" onClick={clickSendMessageBtn} />
 
     </StyledChatScreen>
   );
